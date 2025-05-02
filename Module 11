@@ -1,0 +1,83 @@
+#Omar Carbajal
+#Module 11 lab.
+#9.1
+
+
+# this will open file (overwrites if it exists)
+with open('grades.txt', mode='w') as grades_file:
+    while True:
+        grade_input = input("Enter a grade (-1 to stop): ")
+
+#prompt for grade between 0-100 or error      
+        try:
+            grade = float(grade_input)
+            if grade == -1:
+                break
+            elif 0 <= grade <= 100:
+                grades_file.write(f"{grade}\n")
+            else:
+                print("Grade must be between 0 and 100.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+#Module 9.2
+
+#Omar Carbajal
+#Module 11 lab.
+#9.1
+
+# Initialize variables to hold the total of grades and count of grades
+total = 0.0
+count = 0
+
+print("\nGrades entered:")
+
+# Open the grades file in read mode
+with open('grades.txt', mode='r') as grades_file:
+    # Loop through each line in the file
+    for line in grades_file:
+# Convert the line (grade) to a float after stripping whitespace
+        grade = float(line.strip())
+        # Print the individual grade
+        print(f"{grade}")
+        # Add the grade to the total
+        total += grade
+        # Increment the count of grades
+        count += 1
+# If at least one grade was processed
+if count > 0:
+    # Calculate the average grade
+    average = total / count
+    # Print the total, count, and average of the grades
+    print(f"\nTotal of grades: {total}") 
+    print(f"Number of grades: {count}")
+    print(f"Average grade: {average:.2f}")
+else:
+    # Handle case where no grades were found in the file
+    print("No grades found in file.")
+
+# Module 9.3
+
+import csv
+# Open the file in append mode to allow adding multiple students without
+overwriting
+with open('grades.csv', mode='a', newline='') as file:
+ writer = csv.writer(file)
+ while True:
+ # Get student information
+ first_name = input("Enter student's first name (or type 'done' to
+finish): ")
+ if first_name.lower() == 'done':
+ break
+ last_name = input("Enter student's last name: ")
+ # Get and validate exam grades
+ try:
+ grade1 = int(input("Enter first exam grade: "))
+ grade2 = int(input("Enter second exam grade: "))
+ grade3 = int(input("Enter third exam grade: "))
+ except ValueError:
+ print("Please enter valid integer grades.")
+ continue
+ # Write the data to the CSV file
+ writer.writerow([first_name, last_name, grade1, grade2, grade3])
+ print("Record saved.\n")
